@@ -211,24 +211,15 @@ textarea {
 .wheel-pointer {
     position: absolute;
     left: 50%;
-    top: -2rem;
+    top: -1.45rem;
     transform: translateX(-50%);
-    width: 3rem;
-    height: 3.6rem;
-    border: 0;
-    padding: 0;
-    background: #f9a166;
-    border-radius: 50% 50% 0 0;
-    clip-path: polygon(0% 50%, 50% 100%, 100% 50%, 100% 0%, 0% 0%);
-    filter: none;
+    width: 3.95rem;
+    height: auto;
     z-index: 3;
-    cursor: default;
+    filter: drop-shadow(0 0.35rem 0.7rem rgba(20, 31, 26, 0.18));
+    pointer-events: none;
 }
 
-.wheel-pointer::before,
-.wheel-pointer::after {
-    display: none;
-}
 
 .spin-button {
     display: block;

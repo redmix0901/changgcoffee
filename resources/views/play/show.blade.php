@@ -32,7 +32,7 @@
             >
                 <div class="play-spin-stack">
                     <div class="wheel-shell">
-                        <button type="button" class="wheel-pointer" aria-hidden="true"></button>
+                        <img class="wheel-pointer" src="{{ asset('layout-assets/wheel-pointer.png') }}" alt="">
                         <div class="wheel-disc" :style="wheelStyle">
                             <div class="wheel-label-layer">
                                 <template x-for="(segment, index) in segments" :key="segment.id">
