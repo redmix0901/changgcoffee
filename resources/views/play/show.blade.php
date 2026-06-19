@@ -49,11 +49,13 @@
                     <p x-show="errorMessage" x-text="errorMessage" style="text-align:center;color:#9b3f16;font-weight:700"></p>
                 </div>
 
-                <div class="result-ticket" :class="{ 'result-ticket--revealed': resultLabel }">
+                <div class="result-ticket" :class="{ 'result-ticket--revealed': resultLabel, 'result-ticket--idle': !resultLabel }">
                     <div class="result-ticket__inner">
-                        <p class="result-ticket__caption">CHÚC MỪNG BẠN NHẬN ĐƯỢC</p>
-                        <div class="result-ticket__body">
-                            <p class="result-ticket__count">01</p>
+                        <p
+                            class="result-ticket__caption"
+                            x-html="resultLabel ? 'CHÚC MỪNG BẠN NHẬN ĐƯỢC' : 'Cảm ơn vì đã đến!<br>Cứ quay là có quà, chơi thôi!!'"></p>
+                        <div class="result-ticket__body" x-show="resultLabel">
+                            <p class="result-ticket__count" x-text="resultLabel ? '01' : ' '"></p>
                             <p
                                 class="result-ticket__value"
                                 :class="{ 'result-ticket__value--placeholder': !resultLabel }"
