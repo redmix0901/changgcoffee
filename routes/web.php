@@ -2,11 +2,19 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CampaignController;
+use App\Models\Campaign;
 use App\Http\Controllers\PublicCampaignController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $demoCampaign = Campaign::query()
+        ->where('is_active', true)
+        ->latest('id')
+        ->first(['name', 'public_token']);
+
+    return view('welcome', [
+        'demoCampaign' => $demoCampaign,
+    ]);
 });
 
 Route::get('/play/{token}', [PublicCampaignController::class, 'show'])->name('play.show');

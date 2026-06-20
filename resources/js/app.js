@@ -1,24 +1,8 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
+import { buildGradient, computeSpinRotation } from './spin-wheel';
 
 window.Alpine = Alpine;
-
-const buildGradient = (segments) => {
-    if (!segments.length) {
-        return 'conic-gradient(#416b5c 0deg 360deg)';
-    }
-
-    const segmentAngle = 360 / segments.length;
-
-    return `conic-gradient(${segments
-        .map((segment, index) => {
-            const start = index * segmentAngle;
-            const end = start + segmentAngle;
-            const color = index % 2 === 0 ? '#416b5c' : '#f5f1dd';
-            return `${color} ${start}deg ${end}deg`;
-        })
-        .join(', ')})`;
-};
 
 Alpine.data('spinWheel', (segments, spinUrl) => ({
     segments,
@@ -145,12 +129,12 @@ Alpine.data('spinWheel', (segments, spinUrl) => ({
             }
 
             const winnerIndex = this.segments.findIndex((segment) => segment.id === payload.result.id);
-            const segmentAngle = 360 / Math.max(this.segments.length, 1);
-            const targetAngle = winnerIndex * segmentAngle + segmentAngle / 2;
-            const extraTurns = 5 * 360;
-            const normalized = (360 - targetAngle) % 360;
 
-            this.rotation += extraTurns + normalized;
+            if (winnerIndex === -1) {
+                throw new Error('Spin result does not match any wheel segment.');
+            }
+
+            this.rotation = computeSpinRotation(this.rotation, winnerIndex, this.segments.length);
             this.pendingResultLabel = payload.result.label;
 
             window.setTimeout(() => {
