@@ -34,4 +34,12 @@ class ExampleTest extends TestCase
             ->assertSee($campaign->public_token, false)
             ->assertSee(route('play.show', $campaign->public_token), false);
     }
+
+    public function test_the_welcome_view_can_render_without_a_demo_campaign_variable(): void
+    {
+        $html = view('welcome')->render();
+
+        $this->assertStringContainsString('Choi thu ngay', $html);
+        $this->assertStringNotContainsString('Dung token demo', $html);
+    }
 }

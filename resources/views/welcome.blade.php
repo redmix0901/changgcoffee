@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@php($demoCampaign = $demoCampaign ?? null)
+
 @section('title', 'Spin Wheel Hub')
 @section('meta_description', 'Quick launch hub for public spin campaigns and admin access.')
 
